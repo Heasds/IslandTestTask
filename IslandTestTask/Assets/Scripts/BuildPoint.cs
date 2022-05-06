@@ -31,8 +31,6 @@ public class BuildPoint : MonoBehaviour
         {
             Instantiate(buildingPrefab, buildingPreview.transform.position, buildingPreview.transform.rotation);
 
-            //saveLoadManager.buildPoints.Remove(this);
-
             resorcesController.buildingsCount++;
             resorcesController.UpdateText();
 

@@ -9,5 +9,11 @@ public class Water : MonoBehaviour
     {
         saveLoadManager.OnSave();
         SceneManager.LoadScene(0);
+    }  
+    
+    private void OnTriggerStay(Collider other)
+    {
+        saveLoadManager.OnSave();
+        SceneManager.LoadScene(0);
     }
 }

@@ -14,12 +14,12 @@ public class CharacterGrindController : MonoBehaviour
         animator.SetFloat("Extract Speed", extractSpeed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.GetComponent<ResourcePoint>() != null)
         {
             resourcePoint = other.GetComponent<ResourcePoint>();
-            animator.SetBool("Extract", true);
+            animator.SetBool("Extract", resourcePoint.isReady);
         }
     }
 
@@ -31,10 +31,18 @@ public class CharacterGrindController : MonoBehaviour
 
     public void MineResources()
     {
-        if (resourcePoint != null && resourcePoint.GetComponent<SphereCollider>().enabled)
+        if (resourcePoint != null)
         {
-            resourcePoint.ExtractResource();
+            if (resourcePoint.isReady)
+            {
+                resourcePoint.ExtractResource();
+            }
+
+            if (resourcePoint.activePiece == resourcePoint.meshPieces.Count) 
+            {
+                resourcePoint.isReady = false;
+                StartCoroutine(resourcePoint.RecoveryPoint());
+            }
         }
-        else animator.SetBool("Extract", false);
     }
 }
